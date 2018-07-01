@@ -3,6 +3,7 @@
 #include "Seleccion.h"
 #include "Nodo.h"
 #include "lista.h"
+#include <fstream>
 
 
 using namespace std;
@@ -12,7 +13,9 @@ void estadisticas();
 
 int main(){
     int senuelo=0;
-    Seleccion* sele;
+    //Seleccion* sele;
+    //Seleccion* s_nacional = new Seleccion();
+    Seleccion* s_n;
     Nodo* nodo;
     lista* lista_selecciones;
     int op=0;
@@ -23,11 +26,12 @@ int main(){
     int goles_anotados=0;
     string maximo_goleador=" ";
     int jugador_goles=0;
+     ofstream out ("Archivo_Seleccion.dat", ios::out | ios::binary | ios::app);
     char res ='s';
     do{
     switch(menu()){
         case 1:
-            cout<<"[1] Agregar una Seleccion"<<endl;
+            cout<<"[1] Agregar una Seleccion y Guardar Archivo"<<endl;
             cout<<"[2] Modificar una Seleccion // aun no"<<endl;
             cout<<"[3] Eliminar una Seleccion // aun no"<<endl;
             cout<<"--------------------------"<<endl;    
@@ -49,12 +53,19 @@ int main(){
                     cin>>maximo_goleador;
                     cout<<"Ingrese la cantidad de goles anotados del maximo goleador"<<endl;
                     cin>>jugador_goles;
-                    sele =  new Seleccion(nombre,partidos_ganados,partidos_perdidos,empatados,goles_anotados,maximo_goleador,jugador_goles);
-                    nodo = new Nodo(sele);
+                    s_n =  new Seleccion(nombre,partidos_ganados,partidos_perdidos,empatados,goles_anotados,maximo_goleador,jugador_goles);
+                    nodo = new Nodo(s_n);
                     lista_selecciones = new lista();
                     lista_selecciones->agregar(nodo);
                     senuelo++;
-                    
+                    //cout<<"PROBANDOOOO"<<endl;
+                    cout<<"Escribiendo Archivo..."<<endl;
+                    s_n->write(out);
+                    cout<<"Guardado con exito"<<endl;
+                    //cout<<"fin de prueba"<<endl
+                    cout<<endl;
+                    out.close();
+
                     break;//fin del case 1 de agregar
           
                     case 2:
@@ -70,6 +81,7 @@ int main(){
             }//fin del swicth de administracion
         break;
     }
+    cout<<endl;
     cout<<"Desea continuar[s/n]"<<endl;
     cin>>res;
     }while(res=='S' || res=='s');

@@ -35,6 +35,9 @@ class Seleccion{
     string getMaximoGoleador();
     int getGolesJugador();
 
+    //archivo
+    void write(ofstream&);
+
     
 
    

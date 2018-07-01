@@ -69,3 +69,27 @@ string Seleccion::getMaximoGoleador(){
 int Seleccion::getGolesJugador(){
   return goles_jugador;
 }
+
+void Seleccion::write(ofstream& out){
+  
+  int size = nombre.size();
+  out.write(reinterpret_cast<char*>(&size),sizeof(int));
+  out.write(nombre.data(),nombre.size());
+
+  out.write(reinterpret_cast<char*>(&partidosGanados),sizeof(int));
+
+  
+  out.write(reinterpret_cast<char*>(&partidosPerdidos),sizeof(int));
+
+  out.write(reinterpret_cast<char*>(&partidosEmpatados),sizeof(int));
+
+  out.write(reinterpret_cast<char*>(&golesAnotados),sizeof(int));
+
+  out.write(reinterpret_cast<char*>(&goles_jugador),sizeof(int));
+
+  int tam = maximoGoleador.size();
+    out.write(reinterpret_cast<char*>(&tam),sizeof(int));
+    out.write(maximoGoleador.data(),maximoGoleador.size());
+
+
+}
